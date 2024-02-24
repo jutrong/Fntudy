@@ -1,0 +1,49 @@
+{
+  "postData": [
+    {
+      "id": "1",
+      "title": "Post 1",
+      "image": "https://images.unsplash.com/photo-1682686578842-00ba49b0a71a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8",
+      "price": 1009,
+      "place": "place1",
+      "period": "2023.09.01~2024.01.02",
+      "isActive": false
+    },
+    {
+      "id": "2",
+      "title": "Post 2",
+      "image": "https://images.unsplash.com/photo-1707344088547-3cf7cea5ca49?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHw2fHx8ZW58MHx8fHx8",
+      "price": 1811,
+      "place": "place2",
+      "period": "2023.09.01~2024.01.02",
+      "isActive": false
+    },
+    {
+      "id": "3",
+      "title": "Post 3",
+      "image": "https://images.unsplash.com/photo-1708436137487-b858e5c0ea28?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxNXx8fGVufDB8fHx8fA%3D%3D",
+      "price": 1903,
+      "place": "place3",
+      "period": "2023.09.01~2024.01.02",
+      "isActive": false
+    },
+    {
+      "id": "4",
+      "title": "Post 4",
+      "image": "https://images.unsplash.com/photo-1708312609465-28acdfdbfb8a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8fA%3D%3D",
+      "price": 171,
+      "place": "place1",
+      "period": "2023.09.01~2024.01.02",
+      "isActive": true
+    },
+    {
+      "id": "5",
+      "title": "Post 5",
+      "image": "https://images.unsplash.com/photo-1682686580433-2af05ee670ad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHx8fA%3D%3D",
+      "price": 179,
+      "place": "place5",
+      "period": "2023.09.01~2024.01.02",
+      "isActive": false
+    }
+  ]
+}
