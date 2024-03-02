@@ -1,2 +1,2 @@
 export * from './Home.styles';
-export * from './PostList.styles';
+export * from './Post.styles';

@@ -1,13 +1,11 @@
 
-import { useSetRecoilState } from 'recoil';
 import * as S from '../../styles/Home'
-import { basketIdState } from '../../recoil/atom/Basket';
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toggleIsActive } from '../../apis/posts';
+import { useNavigate } from 'react-router-dom';
 
 type PostListProps = {
   post: {
@@ -21,9 +19,10 @@ type PostListProps = {
   }
 }
 
-const PostList = ({ post }: PostListProps) => {
-  const [isActive, setIsActive] = useState<boolean>()
+const Post = ({ post }: PostListProps) => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate()
+  const [isActive, setIsActive] = useState<boolean>()
 
 
   const toggleActive = useMutation({
@@ -37,23 +36,13 @@ const PostList = ({ post }: PostListProps) => {
     },
   });
 
-  // const updateBasket = () => {
-  //   setBasket((prev) => {
-  //     const isAlreadyInBasket = prev.postId.includes(post.id);
-
-  //     // 이미 장바구니에 있는 경우 제거, 그렇지 않은 경우 추가
-  //     if (isAlreadyInBasket) {
-  //       return { ...prev, postId: prev.postId.filter((id: number) => id !== post.id) };
-  //     } else {
-  //       return { ...prev, postId: [...prev.postId, post.id] };
-  //     }
-  //   });
-  // }
-
   const clickStarBtn = () => {
     toggleActive.mutate();
-
   }
+  const clickTicketingBtn = () => {
+    navigate(`/postdetail/${post.id}`)
+  }
+
 
   useEffect(() => {
     setIsActive(post.isActive)
@@ -70,12 +59,15 @@ const PostList = ({ post }: PostListProps) => {
         <S.Price>{post.price}원</S.Price>
         <S.Period>{post.period}</S.Period>
       </S.PostContet>
-      <S.BtnWrap onClick={clickStarBtn}>
-        {isActive ? <FaStar /> : <FaRegStar />}
+
+      <S.BtnWrap>
+        <S.BasketBtn onClick={clickStarBtn}>
+          {isActive ? <FaStar /> : <FaRegStar />}
+        </S.BasketBtn>
+        < S.Ticketing onClick={clickTicketingBtn}> 예매하기</S.Ticketing>
       </S.BtnWrap>
-      {/* < S.Ticketing > 예매하기</S.Ticketing> */}
     </S.PostListWrap >
   )
 }
 
-export default PostList;
+export default Post;

@@ -1,26 +1,38 @@
 import { FixedSizeList as List } from 'react-window';
-import PostList from '../../components/Home/PostList';
+import PostList from '../../components/Home/Post';
 import * as S from '../../styles/Home'
-import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getPostData } from '../../apis/posts';
+import { TPost } from '../../types/posts';
 
 
+const Row = ({ index, style, data }: { index: number, style: React.CSSProperties, data: TPost[] }) => (
+  <div style={style}>
+    <PostList post={data[index]} />
+  </div>
+);
 
-
-const Home = () => {
+const ListComponent = () => {
   const { data: postData } = useQuery({ queryKey: ['posts'], queryFn: getPostData });
 
+  return (
+    <List
+      height={820}
+      width={500}
+      itemSize={120}
+      itemCount={postData?.length || 0}
+      itemData={postData}
+    >
+      {Row}
+    </List >
+  )
+}
 
-  useEffect(() => {
-    getPostData();
-  }, [])
+const Home = () => {
 
   return (
     <S.Wrap>
-      {postData?.map((post) => (
-        <PostList key={post.id} post={post} /> // 
-      ))}
+      <ListComponent />
     </S.Wrap>
   )
 }

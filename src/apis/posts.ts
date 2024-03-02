@@ -7,6 +7,12 @@ export const getPostData = async () => {
   return data;
 };
 
+export const getPostDetail = async (postId: number) => {
+  const { data } = await axios.get<TPost>(`${process.env.REACT_APP_BASE_URL}/postData/${postId}`);
+
+  return data;
+};
+
 export const toggleIsActive = async (postId: number, active: any) => {
   try {
     const { data } = await axios.patch(`${process.env.REACT_APP_BASE_URL}/postData/${postId}`, active);

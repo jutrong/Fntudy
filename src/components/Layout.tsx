@@ -1,10 +1,11 @@
+import { Outlet } from 'react-router-dom';
 import * as S from '../styles/Layout.styles'
 import Footer from './common/Footer';
 
-const Layout = ({ children }: any) => {
+const Layout = () => {
   return (
     <S.Wrap>
-      {children}
+      <Outlet />
       <Footer />
     </S.Wrap>
   )

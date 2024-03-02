@@ -37,6 +37,12 @@ export const Period = styled.p`
   font-size: 10px;
 `;
 export const BtnWrap = styled.div`
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+export const BasketBtn = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;

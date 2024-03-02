@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { basketIdState } from "../../recoil/atom/Basket";
-import PostList from "../../components/Home/PostList";
+import PostList from "../../components/Home/Post";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { TPost } from "../../types/posts";
