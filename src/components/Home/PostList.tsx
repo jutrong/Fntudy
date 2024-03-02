@@ -6,6 +6,8 @@ import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toggleIsActive } from '../../apis/posts';
 
 type PostListProps = {
   post: {
@@ -20,32 +22,37 @@ type PostListProps = {
 }
 
 const PostList = ({ post }: PostListProps) => {
-  const setBasket = useSetRecoilState(basketIdState);
   const [isActive, setIsActive] = useState<boolean>()
+  const queryClient = useQueryClient();
 
-  const toggleIsActive = async (postId: number) => {
-    try {
-      const { data } = await axios.patch(`${process.env.REACT_APP_BASE_URL}/postData/${postId}`, { isActive: !isActive });
+
+  const toggleActive = useMutation({
+    mutationFn: () => toggleIsActive(post.id, { isActive: !isActive }),
+    onSuccess(data) {
       setIsActive(data.isActive);
-    } catch (e) {
-      console.log(e)
-    }
-  }
-  const handleBasket = (postId: number) => {
-    setBasket((prev) => {
-      const isAlreadyInBasket = Array.isArray(prev.postId) && prev.postId.includes(postId);
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    },
+    onError(err) {
+      console.log(err);
+    },
+  });
 
-      if (isAlreadyInBasket) {
-        return { ...prev, postId: prev.postId.filter((id: number) => id !== postId) };
-      } else {
-        return { ...prev, postId: [...prev.postId, postId] };
-      }
-    });
-  }
+  // const updateBasket = () => {
+  //   setBasket((prev) => {
+  //     const isAlreadyInBasket = prev.postId.includes(post.id);
 
-  const clickStarBtn = (postId: number) => {
-    toggleIsActive(postId);
-    handleBasket(postId);
+  //     // 이미 장바구니에 있는 경우 제거, 그렇지 않은 경우 추가
+  //     if (isAlreadyInBasket) {
+  //       return { ...prev, postId: prev.postId.filter((id: number) => id !== post.id) };
+  //     } else {
+  //       return { ...prev, postId: [...prev.postId, post.id] };
+  //     }
+  //   });
+  // }
+
+  const clickStarBtn = () => {
+    toggleActive.mutate();
+
   }
 
   useEffect(() => {
@@ -54,7 +61,7 @@ const PostList = ({ post }: PostListProps) => {
 
   return (
     <S.PostListWrap>
-      <S.PostImageWrap>
+      <S.PostImageWrap >
         <S.PostImage src={post.image} />
       </S.PostImageWrap>
       <S.PostContet>
@@ -63,7 +70,7 @@ const PostList = ({ post }: PostListProps) => {
         <S.Price>{post.price}원</S.Price>
         <S.Period>{post.period}</S.Period>
       </S.PostContet>
-      <S.BtnWrap onClick={() => clickStarBtn(post.id)}>
+      <S.BtnWrap onClick={clickStarBtn}>
         {isActive ? <FaStar /> : <FaRegStar />}
       </S.BtnWrap>
       {/* < S.Ticketing > 예매하기</S.Ticketing> */}

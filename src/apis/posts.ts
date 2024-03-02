@@ -1,7 +1,18 @@
 import axios from 'axios';
+import { TPost } from '../types/posts';
 
 export const getPostData = async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/postData`);
+  const { data } = await axios.get<TPost[]>(`${process.env.REACT_APP_BASE_URL}/postData`);
 
-  return response.data;
+  return data;
+};
+
+export const toggleIsActive = async (postId: number, active: any) => {
+  try {
+    const { data } = await axios.patch(`${process.env.REACT_APP_BASE_URL}/postData/${postId}`, active);
+
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };

@@ -1,12 +1,11 @@
 import { atom } from 'recoil';
 import { recoilPersist } from 'recoil-persist';
-import { TPostResponse } from '../../types/posts';
+import { TPost, TPostResponse } from '../../types/posts';
 
 const { persistAtom } = recoilPersist();
-export const postDataState = atom<TPostResponse>({
+
+export const postDataState = atom<TPost[]>({
   key: 'postDataState',
-  default: {
-    posts: [],
-  },
+  default: [],
   effects_UNSTABLE: [persistAtom],
 });

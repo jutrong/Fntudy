@@ -1,23 +1,17 @@
+import { FixedSizeList as List } from 'react-window';
 import PostList from '../../components/Home/PostList';
 import * as S from '../../styles/Home'
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { TPost } from '../../types/posts';
+import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getPostData } from '../../apis/posts';
+
 
 
 
 const Home = () => {
-  const [postData, setPostData] = useState<TPost[]>();
+  const { data: postData } = useQuery({ queryKey: ['posts'], queryFn: getPostData });
 
-  // 서버로부터 게시물 데이터를 받아오는 함수
-  const getPostData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/postData`);
-      setPostData(response.data);
-    } catch (error) {
-      console.log(error)
-    }
-  }
+
   useEffect(() => {
     getPostData();
   }, [])
