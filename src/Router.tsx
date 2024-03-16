@@ -4,6 +4,7 @@ import Basket from "./pages/Basket";
 import PostDetail from "./pages/PostDetail";
 import Layout from "./components/Layout";
 import SubLayout from "./components/SubLayout";
+import Kanban from "./pages/Kanban";
 
 const Router = () => {
   return (
@@ -14,6 +15,9 @@ const Router = () => {
       </Route>
       <Route element={<SubLayout />}>
         <Route path="/postdetail/:id" element={<PostDetail />} />
+      </Route>
+      <Route>
+        <Route path="kanban" element={<Kanban />} />
       </Route>
     </Routes>
   )
