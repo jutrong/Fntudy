@@ -4,7 +4,7 @@ import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toggleIsActive } from '../../apis/posts';
+import postApi from '../../apis/posts';
 import { useNavigate } from 'react-router-dom';
 
 type PostListProps = {
@@ -26,19 +26,21 @@ const Post = ({ post }: PostListProps) => {
 
 
   const toggleActive = useMutation({
-    mutationFn: () => toggleIsActive(post.id, { isActive: !isActive }),
+    mutationFn: () => postApi.toggleIsActive(post.id, { isActive: !isActive }),
     onSuccess(data) {
       setIsActive(data.isActive);
       queryClient.invalidateQueries({ queryKey: ['posts'] });
     },
     onError(err) {
       console.log(err);
+      alert('장바구니에 담지 못하였습니다.')
     },
   });
 
   const clickStarBtn = () => {
     toggleActive.mutate();
   }
+
   const clickTicketingBtn = () => {
     navigate(`/postdetail/${post.id}`)
   }

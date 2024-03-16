@@ -22,3 +22,11 @@ export const toggleIsActive = async (postId: number, active: any) => {
     console.log(e);
   }
 };
+
+const postApi = {
+  getPostData,
+  getPostDetail,
+  toggleIsActive,
+};
+
+export default postApi;

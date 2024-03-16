@@ -1,19 +1,19 @@
 import { FixedSizeList as List } from 'react-window';
-import PostList from '../../components/Home/Post';
+import Post from '../../components/Home/Post';
 import * as S from '../../styles/Home'
 import { useQuery } from '@tanstack/react-query';
-import { getPostData } from '../../apis/posts';
+import postApi from '../../apis/posts';
 import { TPost } from '../../types/posts';
 
 
 const Row = ({ index, style, data }: { index: number, style: React.CSSProperties, data: TPost[] }) => (
-  <div style={style}>
-    <PostList post={data[index]} />
-  </div>
+  <div style={style} >
+    <Post post={data[index]} />
+  </div >
 );
 
-const ListComponent = () => {
-  const { data: postData } = useQuery({ queryKey: ['posts'], queryFn: getPostData });
+const PostList = () => {
+  const { data: postData } = useQuery({ queryKey: ['posts'], queryFn: postApi.getPostData });
 
   return (
     <List
@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <S.Wrap>
-      <ListComponent />
+      <PostList />
     </S.Wrap>
   )
 }
